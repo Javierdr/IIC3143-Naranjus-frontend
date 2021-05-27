@@ -1,13 +1,21 @@
-# IIC3143-Naranjus
+# naranjus
 
-Repositorio con el código _frontend_ del proyecto "Control de acceso" del curso IIC3143, grupo Naranjus.
+> A Vue.js project
 
-Miembros:
-- Camilo Berríos
-- Franco Bruña
-- Gabriel Catalán
-- Javier Dreves
-- Maximiliano Friedl
-- Benjamín Martínez
-- Felipe Rojas
-- Matías Soto
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
