@@ -9,7 +9,7 @@ Vue.use(Router)
 
 
 export default new Router({
-  mode : 'history',
+  // mode : 'history', // TODO <- esto hace un reload entre paginas deja de ser un "one page app" e impide que funcione vuex
   routes: [
     {
       path: '/',
