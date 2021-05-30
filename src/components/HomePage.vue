@@ -57,14 +57,12 @@ export default {
     return {
       title: 'Naranjus'
     }
-
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 #home-page{
   background-color: #92D2F2;
   background: url('../assets/img1.jpg') no-repeat center center;
@@ -76,5 +74,4 @@ export default {
 #apppng{
   max-height: 80vh;
 }
-
 </style>
