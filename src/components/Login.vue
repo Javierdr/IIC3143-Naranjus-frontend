@@ -52,7 +52,7 @@ export default {
             if (res.status === 200) {  // OK
                 localStorage.access = body.access;
                 localStorage.refresh = body.refresh;
-                console.log("REDIRECT THE USER")
+                this.$router.push('registro_visitas');
             } else {  // ERROR
                 this.error = 'El usuario y la contraseña no coinciden!';
             }
