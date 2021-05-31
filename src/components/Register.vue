@@ -1,0 +1,167 @@
+<template>
+    <div id="container">
+        <form class="form-horizontal">
+                <h2>Crear nuevo usuario</h2>
+                <div v-if="errors.length">
+                    <div v-for="error in errors" v-bind:key="error">
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    </div>
+                </div>
+                <div v-if="success">
+                    <div class="alert alert-success" role="alert">
+                        {{ successMessage }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-3 control-label">Nombre</label>
+                    <div class="col-sm-9">
+                        <input v-model="firstName" type="text" id="firstName" placeholder="Nombre" class="form-control" autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-3 control-label">Apellido</label>
+                    <div class="col-sm-9">
+                        <input v-model="lastName" type="text" id="lastName" placeholder="Apellido" class="form-control" autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <input v-model="email" type="text" id="email" placeholder="Email" class="form-control" autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-3 control-label">Nombre de usuario</label>
+                    <div class="col-sm-9">
+                        <input v-model="username" type="text" id="username" placeholder="Nombre de usuario" class="form-control" autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-3 control-label">Contraseña</label>
+                    <div class="col-sm-9">
+                        <input v-model="password" type="password" id="password" placeholder="" class="form-control" autofocus>
+                    </div>
+                </div>
+                <button @click="registerButton" :disabled="disabled" type="button" class="btn btn-primary btn-lg">Crear</button>
+        </form>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Register',
+    data() {
+        return {
+            errors: [],
+            success: false,
+            disabled: false,
+            successMessage: 'Usuario creado con éxito!',
+            firstName: '',
+            lastName: '',
+            email: '',
+            username: '',
+            password: '',
+        }
+    },
+    methods: {
+        registerButton: async function() {
+            this.disabled = true;
+            this.success = false;
+            const errors = this.checkErrors();
+            if (errors) {
+                this.disabled = false;
+                return false;
+            }
+
+            const data = {
+                "first_name": this.firstName,
+                "last_name": this.lastName,
+                "email": this.email,
+                "username": this.username,
+                "password": this.password,
+            };
+
+            const res = await fetch('http://localhost:8000/users/api/register', {
+                method: 'POST',
+                cache: 'no-cache',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Origin': 'http://localhost:8080'
+                },
+                body: JSON.stringify(data)
+            });
+            const body = await res.json();
+
+            if (res.status === 200) {
+                this.success = true;
+            } else{
+                this.errors.push(body)
+            }
+            this.disabled = false;
+        },
+        checkErrors: function () {
+            this.errors = [];
+
+            if (this.firstName.length < 2) {
+                this.errors.push("Nombre faltante o demasiado corto")
+            }
+            if (this.lastName.length < 2) {
+                this.errors.push("Apellido faltante o demasiado corto")
+            }
+            if (!this.validEmail(this.email)) {
+                this.errors.push("Email invalido");
+            }
+            if (this.username.length < 4) {
+                this.errors.push("Nombre de usuario faltante o demasiado corto")
+            }
+            if (this.password.length < 4) {
+                this.errors.push("Contraseña faltante o demasiado corto")
+            }
+
+            return this.errors.length ? true : false;
+        },
+        validEmail: function(email) {
+            // Taken from the vue form validation page
+            var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return regex.test(email);
+        },
+        // validRut: function(rut) {
+        //     var regex = /^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/;
+        //     return regex.test(rut);
+        // }
+    }
+}
+</script>
+
+<style scoped>
+    #container {
+        padding: 30px;
+        background-color: #f2f2f2;
+    }
+
+    form {
+        max-width: 1024px;
+        margin: 0 auto;
+    }
+
+    form h2 {
+        margin-bottom: 20px;
+    }
+
+    form label {
+        margin-top: 5px;
+        text-align: right;
+    }
+
+    li {
+        color: red;
+        list-style-position: inside;
+    }
+
+    #radio-container {
+        text-align: left;
+    }
+</style>
