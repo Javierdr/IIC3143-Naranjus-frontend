@@ -1,26 +1,69 @@
 <template>
-    <div class="border p-3 p-md-5 bg-white rounded shadow">
+    <div id="container" class="border p-3 p-md-5 bg-white rounded shadow">
         <h2> Ingresar </h2>
+        <div v-if="error.length" class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
         <form>
             <div class="form-group">
                 <div>
-                    <label for="mailLogin">Correo Electronico</label>
-                    <input id="mailLogin" placeholder="ejemplo@ejemplo.cl" class="form-control">
+                    <label for="username">Nombre de usuario</label>
+                    <input v-model="username" type="text" id="username" placeholder="Nombre de usuario" class="form-control">
                 </div>
-                <label for="mailLogin" class ="mt-2">Contraseña</label>
-                <input id="mailLogin"  class="form-control">
-                <button type= "sumbit" class="btn btn-success mt-2">Inicar Session</button>
+                <label for="password" class ="mt-2">Contraseña</label>
+                <input v-model="password"  type="password" id="password"  class="form-control">
+                <button @click="onSubmit" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Inicar Session</button>
             </div>
         </form>
     </div>
 </template>
 <script>
+const api = 'http://localhost:8000';
+
 export default {
-    mounted() {
-        console.log("LOGIN MOUNTED");
+    data() {
+        return {
+            username: '',
+            password: '',
+            error: '',
+            disabled: false,
+        }
+    },
+    methods: {
+        onSubmit: async function() {
+            this.error = '';
+            this.disabled = true;
+
+            const data = {
+                "username": this.username,
+                "password": this.password,
+            };
+            const res = await fetch(`${api}/api/token/`, {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Origin': 'http://localhost:8080'
+                },
+                body: JSON.stringify(data)
+            });
+            const body = await res.json();
+
+            if (res.status === 200) {  // OK
+                localStorage.access = body.access;
+                localStorage.refresh = body.refresh;
+                console.log("REDIRECT THE USER")
+            } else {  // ERROR
+                this.error = 'El usuario y la contraseña no coinciden!';
+            }
+
+            this.disabled = false;
+        }
     }
 }
 </script>
 <style scoped>
-    
+    #container {
+        background-color: #f2f2f2;
+    }
 </style>
