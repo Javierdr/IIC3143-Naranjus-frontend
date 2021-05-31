@@ -12,7 +12,7 @@
                 </div>
                 <label for="password" class ="mt-2">Contraseña</label>
                 <input v-model="password"  type="password" id="password"  class="form-control">
-                <button @click="onSubmit" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Inicar Session</button>
+                <button @click="onSubmit" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Iniciar sesión</button>
             </div>
         </form>
     </div>
