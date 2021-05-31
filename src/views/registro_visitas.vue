@@ -39,6 +39,13 @@
         </div>
       </form>
     </div>
+    <b-modal id="modalInvoice" size="lg"  title="Registro Exitoso" v-model="show">
+      <div slot="modal-footer" class="w-100">
+        <b-btn size="sm" class="float-right" variant="success" @click="show=false">
+          Ok
+        </b-btn>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -52,6 +59,8 @@
                 RUT: "",
                 fecha: "",
                 destino: "",
+                in_auto: null,
+                show: false,
                 idcount: 0
             }
         },
@@ -73,6 +82,7 @@
                 this.RUT = "";
                 this.fecha = "";
                 this.destino = "";
+                this.show = true; //TODO esto debe estar en un fetch esperando al server
             }
         }
     }
