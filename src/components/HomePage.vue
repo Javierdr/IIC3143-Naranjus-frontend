@@ -17,7 +17,8 @@
 
             </div>
 
-            <div class="border p-3 p-md-5 bg-white rounded shadow">
+            <Login />
+            <!-- <div class="border p-3 p-md-5 bg-white rounded shadow">
               <h2> Ingresar </h2>
               <form>
 
@@ -34,7 +35,7 @@
                 </div>
               </form>
 
-            </div>
+            </div> -->
 
           </div>
 
@@ -52,7 +53,12 @@
 </template>
 
 <script>
+import Login from './Login';
+
 export default {
+  components: {
+    Login
+  },
   data () {
     return {
       title: 'Naranjus'
