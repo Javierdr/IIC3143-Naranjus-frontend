@@ -63,6 +63,11 @@
             </template>
           </div>
           <input @click="crearVisita" type="button" value="Añadir" class="btn btn-success">
+          <router-link to="Menu">
+            <b-btn class="btn btn-info float-right">
+              Volver
+            </b-btn>
+          </router-link>
         </div>
       </form>
     </div>

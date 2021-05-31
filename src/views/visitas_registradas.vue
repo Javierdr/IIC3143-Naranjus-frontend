@@ -50,6 +50,11 @@
         </table>
       </section>
     </div>
+    <router-link to="Menu">
+      <b-btn size="sm" class="float-right" variant="info">
+        Volver
+      </b-btn>
+    </router-link>
   </div>
 </template>
 
