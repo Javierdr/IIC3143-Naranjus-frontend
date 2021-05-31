@@ -40,9 +40,15 @@
       </form>
     </div>
     <b-modal id="modalInvoice" size="lg"  title="Registro Exitoso" v-model="show">
+      Desea registrar más visitas?
       <div slot="modal-footer" class="w-100">
+        <router-link to="Menu">
+          <b-btn size="sm" class="float-right" variant="info" @click="show=false">
+            Volver
+          </b-btn>
+        </router-link>
         <b-btn size="sm" class="float-right" variant="success" @click="show=false">
-          Ok
+          Seguir
         </b-btn>
       </div>
     </b-modal>

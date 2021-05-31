@@ -2,7 +2,7 @@
   <div>
     <h1> Bienvenido, {{ username }} </h1>
     <ul>
-    <li><router-link to="LogsEntrada">Logs de entrada </router-link></li>
+    <li><router-link to="registro_visitas">Registro Visitas</router-link></li>
     <li><router-link to="LogsEntrada">Logs de entrada </router-link></li>
     <li><router-link to="LogsEntrada">Logs de entrada </router-link></li>
 
@@ -19,7 +19,7 @@ export default {
     data: {
       username: 'asdd'
     }
-    
+
 }
 
 </script>
