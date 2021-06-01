@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <nav class="nav">
+      <a class="nav-link" v-if="currentUser"><router-link to="Menu">Menu </router-link></a>
+    </nav>
     <router-view/>
   </div>
 </template>
@@ -9,7 +12,13 @@
 import Menu from '@/components/Menu'
 
 export default {
-  name: 'App'
+  name: 'App',
+
+  data() {
+    return {
+      currentUser: localStorage.access 
+    }
+  }
 }
 </script>
 
