@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     visitas: [],
-    idVisitas: 0 //TODO cargar el id de db
+    visitasp: [],
+    idVisitas: 0, //TODO cargar el id de db
+    idVisitasp: 0 //TODO cargar el id de db
   },
   mutations: {
     addVisitas(state, payload) {
@@ -15,6 +17,12 @@ export const store = new Vuex.Store({
     idVisitaCounter(state) {
       state.idVisitas++
     },
+    addVisitasProgramadas(state, payload) {
+      state.visitasp.push(payload)
+    },
+    idVisitaProgramadaCounter(state) {
+      state.idVisitasp++
+    },
   },
   actions: {
     addVisitasAction (context, payload) {
@@ -22,7 +30,13 @@ export const store = new Vuex.Store({
     },
     idVisitaCounterAction (context) {
       context.commit('idVisitaCounter')
-    }
+    },
+    addVisitasProgramadasAction (context, payload) {
+      context.commit('addVisitasProgramadas', payload)
+    },
+    idVisitaProgramadaCounterAction (context) {
+      context.commit('idVisitaProgramadaCounter')
+    },
   },
   getters: {
     visitas (state) {
@@ -30,6 +44,12 @@ export const store = new Vuex.Store({
     },
     idVisitaCounter (state) {
       return state.idVisitas
+    },
+    visitasProgramadas (state) {
+      return state.visitasp
+    },
+    idVisitaProgramadaCounter (state) {
+      return state.idVisitasp
     },
   }
 });
