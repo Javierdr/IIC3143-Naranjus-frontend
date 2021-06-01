@@ -19,10 +19,7 @@
 export default {
     data: {
       
-    },
-    mounted () {
-    localStorage.access = true;
-  }
+    }
 
 }
 
