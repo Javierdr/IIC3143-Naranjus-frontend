@@ -1,21 +1,39 @@
-# naranjus
+# IIC3143-Naranjus
 
-> A Vue.js project
+Repositorio con el código *frontend* del proyecto "Control de acceso" del curso IIC3143, grupo Naranjus.
 
-## Build Setup
+Miembros:
 
-``` bash
-# install dependencies
-npm install
+- Camilo Berríos
+- Franco Bruña
+- Gabriel Catalán
+- Javier Dreves
+- Maximiliano Friedl
+- Benjamín Martínez
+- Felipe Rojas
+- Matías Soto
 
-# serve with hot reload at localhost:8080
-npm run dev
+---
 
-# build for production with minification
-npm run build
+## Steps to run the app locally
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
+### Prerequisites
+
+You must have installed on your computer:
+
+- `NodeJS`
+- `npm`
+
+### Steps
+
+1. Clone the repository (`git clone`)
+2. `cd IIC3143-Naranjus-frontend`
+3. `npm install`
+4. `npm run dev`
+
+### To build for production
+
+1. `npm install`
+2. `npm run build`
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
