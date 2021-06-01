@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Registro de visitas</h1>
+    <h1>Visitas Programadas</h1>
     <div class="container mt-5">
       <section class="data">
         <table class="table">
@@ -12,7 +12,7 @@
             <th scope="col">RUT</th>
             <th scope="col">Fecha</th>
             <th scope="col">Destino</th>
-            <th scope="col">Hora</th>
+            <th scope="col">Horas</th>
             <th scope="col">¿Auto?</th>
             <th scope="col">Patente</th>
             <th></th>
@@ -37,7 +37,7 @@
               <span>{{visita.destino}}</span>
             </td>
             <td>
-              <span>{{visita.hora1}}</span>
+              <span>{{visita.hora1}} - {{visita.hora2}}</span>
             </td>
             <td>
               <span>{{visita.in_auto ? "Si" : "No"}}</span>
@@ -60,14 +60,14 @@
 
 <script>
     export default {
-        name: "registro_visitas",
+        name: "visitas_programadas",
         data() {
             return {}
         },
         methods: {},
         computed: {
             visitas() {
-                return this.$store.getters.visitas
+                return this.$store.getters.visitasProgramadas
             }
         }
     }

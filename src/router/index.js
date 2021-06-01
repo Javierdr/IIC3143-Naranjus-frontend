@@ -9,6 +9,8 @@ import LogsEntradaVU from '@/components/LogsEntradaVU'
 import PlatesPage from '@/components/PlatesPage'
 import registro_visitas from '@/views/registro_visitas'
 import visitas_registradas from '@/views/visitas_registradas'
+import programar_visitas from '@/views/programar_visitas'
+import visitas_programadas from '@/views/visitas_programadas'
 
 Vue.use(Router)
 
@@ -69,6 +71,22 @@ const router =  new Router({
       path: '/visitas_registradas',
       name: 'visitas_registradas',
       component: visitas_registradas,
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/programar_visitas',
+      name: 'programar_visitas',
+      component: programar_visitas,
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/visitas_programadas',
+      name: 'visitas_programadas',
+      component: visitas_programadas,
       meta: {
         requiresAuth: true,
       }

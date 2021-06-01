@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Registro visitas</h1>
+    <h1>Programar visitas</h1>
     <div class="container mt-5">
       <h2>Datos de la visita</h2>
 <!--      TODO validar formulario-->
@@ -29,9 +29,13 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-3 col-form-label">Hora</label>
+            <label class="col-3 col-form-label">Rango hora</label>
             <div class="col-3">
               <input v-model="hora1" type="time" name="hora1" class="form-control">
+            </div>
+            -
+            <div class="col-3">
+              <input v-model="hora2" type="time" name="hora2" class="form-control">
             </div>
           </div>
           <div class="form-group row">
@@ -85,7 +89,7 @@
 
 <script>
     export default {
-        name: "registro_visitas",
+        name: "programar_visitas",
         data() {
             return {
                 nombre: "",
@@ -95,6 +99,7 @@
                 destino: "",
                 patente: "",
                 hora1: "",
+                hora2: "",
                 in_auto: false,
                 show: false,
                 idcount: 0
@@ -104,7 +109,7 @@
             crearVisita: function () {
                 const a = {
                     // TODO agregar el id de quien registra a la visita (el current_user.id)
-                    id: this.$store.getters.idVisitaCounter,
+                    id: this.$store.getters.idVisitaProgramadaCounter,
                     nombre: this.nombre,
                     apellido: this.apellido,
                     RUT: this.RUT,
@@ -113,9 +118,10 @@
                     patente: this.patente,
                     in_auto: this.in_auto,
                     hora1: this.hora1,
+                    hora2: this.hora2,
                 };
-                this.$store.dispatch('addVisitasAction', a);
-                this.$store.dispatch('idVisitaCounterAction');
+                this.$store.dispatch('addVisitasProgramadasAction', a);
+                this.$store.dispatch('idVisitaProgramadaCounterAction');
                 this.nombre = "";
                 this.apellido = "";
                 this.RUT = "";
