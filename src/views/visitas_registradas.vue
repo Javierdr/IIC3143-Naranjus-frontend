@@ -12,7 +12,7 @@
             <th scope="col">RUT</th>
             <th scope="col">Fecha</th>
             <th scope="col">Destino</th>
-            <th scope="col">Horas</th>
+            <th scope="col">Hora</th>
             <th scope="col">¿Auto?</th>
             <th scope="col">Patente</th>
             <th></th>
@@ -37,7 +37,7 @@
               <span>{{visita.destino}}</span>
             </td>
             <td>
-              <span>{{visita.hora1}} - {{visita.hora2}}</span>
+              <span>{{visita.hora1}}</span>
             </td>
             <td>
               <span>{{visita.in_auto ? "Si" : "No"}}</span>

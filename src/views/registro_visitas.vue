@@ -29,13 +29,9 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-3 col-form-label">Rango hora</label>
+            <label class="col-3 col-form-label">Hora</label>
             <div class="col-3">
               <input v-model="hora1" type="time" name="hora1" class="form-control">
-            </div>
-            -
-            <div class="col-3">
-              <input v-model="hora2" type="time" name="hora2" class="form-control">
             </div>
           </div>
           <div class="form-group row">
@@ -99,7 +95,6 @@
                 destino: "",
                 patente: "",
                 hora1: "",
-                hora2: "",
                 in_auto: false,
                 show: false,
                 idcount: 0
@@ -118,7 +113,6 @@
                     patente: this.patente,
                     in_auto: this.in_auto,
                     hora1: this.hora1,
-                    hora2: this.hora2,
                 };
                 this.$store.dispatch('addVisitasAction', a);
                 this.$store.dispatch('idVisitaCounterAction');
