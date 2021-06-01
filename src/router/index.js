@@ -86,7 +86,7 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.meta.requiresVisitor) {
     if (localStorage.access) {
-      next('/registro_visitas');
+      next('/Menu');
     } else {
       next();
     }
