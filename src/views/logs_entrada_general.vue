@@ -1,44 +1,39 @@
 <template>
   <div>
-    <h1>Registro de visitas</h1>
+    <h1>Logs de entrada</h1>
     <div class="container mt-5">
       <section class="data">
         <table class="table">
           <thead>
           <tr>
             <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
             <th scope="col">RUT</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Hora</th>
-            <th scope="col">¿Auto?</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Autorizado por</th>
             <th scope="col">Patente</th>
+            <th scope="col">Fecha</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(visita, index) in visitas">
-           
-              <span>{{ visita.nombre }}</span>
+          <tr v-for="(leg, index) in logs_entrada_general">
+            <td>
+              <span>{{ leg.nombre }} {{leg.apellido}}</span>
             </td>
             <td>
-              <span>{{visita.apellido}}</span>
+              <span>{{leg.RUT}}</span>
             </td>
             <td>
-              <span>{{visita.RUT}}</span>
+              <span>{{leg.tipo}}</span>
             </td>
             <td>
-              <span>{{visita.fecha}}</span>
-            </td>
-
-            <td>
-              <span>{{visita.hora1}}</span>
+              <span>{{leg.autorizacion}}</span>
             </td>
             <td>
-              <span>{{visita.in_auto ? "Si" : "No"}}</span>
+              <span>{{leg.patente}}</span>
             </td>
             <td>
-              <span>{{visita.patente}}</span>
+              <span>{{leg.fecha}}</span>
             </td>
           </tr>
           </tbody>
@@ -55,14 +50,14 @@
 
 <script>
     export default {
-        name: "registro_visitas",
+        name: "logs_entrada_general",
         data() {
             return {}
         },
         methods: {},
         computed: {
-            visitas() {
-                return this.$store.getters.visitas
+            logs() {
+                return this.$store.getters.logs_entrada_general
             }
         }
     }

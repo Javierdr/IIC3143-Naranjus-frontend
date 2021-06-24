@@ -2,6 +2,7 @@
   <div id="app">
     <nav class="nav">
       <a class="nav-link" v-if="currentUser"><router-link to="Menu">Menu </router-link></a>
+      
     </nav>
     <router-view/>
   </div>
@@ -31,7 +32,15 @@ export default {
   text-align: center;
   color: #2c3e50;
   font-family:;
+  
 }
+
+.nav {
+  background-color:#2c3e50;
+  color:white;
+}
+
+
 
 .full-height{
   min-height: 100vh;
