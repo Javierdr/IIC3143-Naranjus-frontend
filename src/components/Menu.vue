@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
     <h1> Bienvenido a Naranjus Security Solutions, usuario </h1>
     <img src="assets/logonombre.png" class="img-fluig">
     <ul class="list-group">
@@ -10,6 +10,7 @@
     <li class="list-group-item"><router-link to="registro_visitas">Registro de visitas </router-link></li>
     <li class="list-group-item"><router-link to="visitas_registradas">Visitas Registradas </router-link></li>
     <li class="list-group-item"><router-link to="logs_entrada_general">Logs entrada general </router-link></li>
+    <li class="list-group-item"><router-link to="validacion_peaton">Validar Visita Peatón</router-link></li>
     </ul>
 
   </div>
@@ -20,7 +21,7 @@
 <script>
 export default {
     data: {
-      
+
     }
 
 }
@@ -36,6 +37,5 @@ export default {
 }
 
 .router-link {
-  color: 
 }
 </style>
