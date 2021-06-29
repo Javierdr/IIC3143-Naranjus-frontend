@@ -11,6 +11,7 @@ import registro_visitas from '@/views/registro_visitas'
 import visitas_registradas from '@/views/visitas_registradas'
 import programar_visitas from '@/views/programar_visitas'
 import visitas_programadas from '@/views/visitas_programadas'
+import validacion_visita_peaton from '@/views/validacion_visita_peaton'
 
 Vue.use(Router)
 
@@ -87,6 +88,14 @@ const router =  new Router({
       path: '/visitas_programadas',
       name: 'visitas_programadas',
       component: visitas_programadas,
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/validacion_peaton',
+      name: 'validacion_visita_peaton',
+      component: validacion_visita_peaton,
       meta: {
         requiresAuth: true,
       }
