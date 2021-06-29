@@ -68,6 +68,20 @@
         computed: {
             visitas() {
                 return this.$store.getters.visitasProgramadas
+            },
+            async BETAvisitas() { // TODO revisar cuando en backend esté implementado esto
+                const res = await fetch(`http://localhost:8000/visitasProgramadas/`, {
+                    method: 'GET',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://localhost:8080'
+                    },
+                    body: JSON.stringify(data)
+                });
+                body = await res.json();
+
+                return body.visitasProgramadas
             }
         }
     }

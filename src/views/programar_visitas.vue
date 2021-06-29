@@ -129,6 +129,44 @@
                 this.patente = "";
                 this.in_auto = false;
                 this.show = true; //TODO esto debe estar en un fetch esperando al server
+            },
+
+            BETAcrearVisita: async function () { // TODO revisar cuando en backend esté implementado esto
+                const a = {
+                    nombre: this.nombre,
+                    apellido: this.apellido,
+                    RUT: this.RUT,
+                    fecha: this.fecha,
+                    destino: this.destino,
+                    patente: this.patente,
+                    in_auto: this.in_auto,
+                    hora1: this.hora1,
+                    hora2: this.hora2,
+                };
+                const res = await fetch('http://localhost:8000/vistasProgramadas/api/register', {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://localhost:8080'
+                    },
+                    body: JSON.stringify(a)
+                });
+                const body = await res.json();
+
+                if (res.status === 200) {
+                    this.success = true;
+                } else{
+                    this.errors.push(body)
+                }
+                this.nombre = "";
+                this.apellido = "";
+                this.RUT = "";
+                this.fecha = "";
+                this.patente = "";
+                this.in_auto = false;
+                this.show = true; //TODO esto debe estar en un fetch esperando al server
             }
         }
     }
