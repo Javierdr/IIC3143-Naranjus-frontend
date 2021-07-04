@@ -24,8 +24,19 @@
         <li class="nav-item">
           <router-link to="/Register" class="nav-link active" arial-currente="page">Registro</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/programar_visitas" class="nav-link active" arial-currente="page">Programar Visita</router-link>
+        </li>
       </b-navbar-nav>
-
+<!--      <ul class="list-group">-->
+<!--        <li class="list-group-item"><router-link to="plates">Camaras </router-link></li>-->
+<!--        <li class="list-group-item"><router-link to="programar_visitas">Programar visitas</router-link></li>-->
+<!--        <li class="list-group-item"><router-link to="visitas_programadas">Visitas Programadas </router-link></li>-->
+<!--        <li class="list-group-item"><router-link to="registro_visitas">Registro de visitas </router-link></li>-->
+<!--        <li class="list-group-item"><router-link to="visitas_registradas">Visitas Registradas </router-link></li>-->
+<!--        <li class="list-group-item"><router-link to="logs_entrada_general">Logs entrada general </router-link></li>-->
+<!--        <li class="list-group-item"><router-link to="validacion_peaton">Validar Visita Peatón</router-link></li>-->
+<!--      </ul>-->
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
