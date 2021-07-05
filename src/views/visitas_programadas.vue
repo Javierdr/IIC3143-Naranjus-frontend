@@ -19,16 +19,16 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(visita, index) in visitas">
+          <tr v-for="visita in visitas">
             <td>{{ visita.id }}</td>
             <td>
-              <span>{{ visita.nombre }}</span>
+              <span>{{ visita.name }}</span>
             </td>
             <td>
-              <span>{{visita.apellido}}</span>
+              <span>{{visita.lastname}}</span>
             </td>
             <td>
-              <span>{{visita.RUT}}</span>
+              <span>{{visita.rut}}</span>
             </td>
             <td>
               <span>{{visita.fecha}}</span>
@@ -62,27 +62,41 @@
     export default {
         name: "visitas_programadas",
         data() {
-            return {}
+            return {
+                visitas: []
+            }
         },
-        methods: {},
-        computed: {
-            visitas() {
-                return this.$store.getters.visitasProgramadas
-            },
-            async BETAvisitas() { // TODO revisar cuando en backend esté implementado esto
-                const res = await fetch(`http://localhost:8000/visitasProgramadas/`, {
+        created() {
+            this.BETAvisitasButton()
+        },
+        methods: {
+            async BETAvisitasButton() { // TODO revisar cuando en backend esté implementado esto
+                const res = await fetch(`http://localhost:8000/visitors/`, {
                     method: 'GET',
                     cache: 'no-cache',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': 'http://localhost:8080'
+                        'Origin': 'http://localhost:8080',
+                        'Authorization': "Bearer " + localStorage.access,
                     },
-                    body: JSON.stringify(data)
                 });
-                body = await res.json();
+                const body = await res.json();
+                if (res.status === 200) {
+                    this.success = true;
+                    this.visitas = body
 
-                return body.visitasProgramadas
+                } else{
+                    console.log("error");
+                    console.log(res);
+                }
             }
+
+        },
+        computed: {
+            // visitas() {
+            //     return this.$store.getters.visitasProgramadas
+            // },
         }
     }
 </script>

@@ -27,6 +27,9 @@
         <li class="nav-item">
           <router-link to="/programar_visitas" class="nav-link active" arial-currente="page">Programar Visita</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/visitas_programadas" class="nav-link active" arial-currente="page">Visitas Programadas</router-link>
+        </li>
       </b-navbar-nav>
 <!--      <ul class="list-group">-->
 <!--        <li class="list-group-item"><router-link to="plates">Camaras </router-link></li>-->
