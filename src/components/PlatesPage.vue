@@ -4,11 +4,12 @@
       <div class="col-md-12">
         <h2>Vista en vivo de la camara</h2>
         Camara actual: <code v-if="device">{{ device.label }}</code>
-        <div class="border">
+        <div class="frame">
           <vue-web-cam
             ref="camera"
+            width="80%"
+            height="80%"
             :device-id="deviceId"
-            width="100%"
             @error="onError"
             @cameras="onCameras"
             @camera-change="onCameraChange"
@@ -27,8 +28,14 @@
             </select>
           </div>
         </div>
-        <div class="patente">
-          La patente reconocida es: {{ current_plate }}
+        <div class="row">
+          <div class="flex">
+            <img :src="imgSource" width="60px" height="180px" class="image">
+              <div class="flex-column">
+                <h3 class="left-margin">{{imgText[0]}}</h3>
+                <h3 class="left-margin">{{imgText[1]}}</h3>
+              </div>
+          </div>
         </div>
       </div>
     </div>
@@ -48,7 +55,8 @@ export default {
             camera: null,
             deviceId: null,
             devices: [],
-            current_plate: "AAAA99"
+            current_plate: "AAAA99",
+            access: 'Esperando',
         };
     },
     mounted: function () {
@@ -58,7 +66,26 @@ export default {
     },
     computed: {
         device: function() {
-            return this.devices.find(n => n.deviceId === this.deviceId);
+          return this.devices.find(n => n.deviceId === this.deviceId);
+        },
+        imgSource() { 
+          var images = require.context('../assets/', false, /\.jpeg$/)
+          if (this.access == 'Permitido') {
+            return images('./semaforo_' + "verde" + ".jpeg")  
+          } else if (this.access == "Negado") {
+            return images('./semaforo_' + "rojo" + ".jpeg")  
+          } else {
+            return images('./semaforo_' + "amarillo" + ".jpeg")
+          }
+        },
+        imgText() {
+          if (this.access == 'Permitido') {
+            return ["Accesso Permitido", `La patente es ${this.current_plate}`]
+          } else if (this.access == "Negado") {
+            return ["Accesso Denegado", `La patente es ${this.current_plate}`] 
+          } else {
+            return ["Esperando que llegue un vehículo", " "]
+          }
         }
     },
     watch: {
@@ -95,3 +122,28 @@ export default {
     }
 };
 </script>
+
+<style>
+.flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.frame {
+  width: '80%';
+  height: '80%';
+  border: 3px solid #ccc;
+}
+.left-margin {
+  margin-left: 40px;
+  }
+.flex-column {
+  display: flex;
+  direction: column;
+}
+.image {
+  margin-left: 280px;
+  margin-top: 40px;
+}
+
+</style>

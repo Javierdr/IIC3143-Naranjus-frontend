@@ -1,9 +1,11 @@
 <template>
 
   <div id="naranjus_navbar">
-  <b-navbar toggleable="lg" type="dark" variant="danger" class="navbar-horizontal">
+  <b-navbar toggleable="lg" type="dark" variant="danger" class="navbar-horizontal primary">
 
-    <b-navbar-brand to="/" class="nav-link active" href="#">Naranjus</b-navbar-brand>
+    <b-navbar-brand to="/" class="nav-link active" href="#">
+      <img src="../assets/logocolor.png" height="54.4" width="38.6" class="logo">Naranjus
+    </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -35,19 +37,10 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <li class="nav-item">
-
-            <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-            <template #button-content>
-              <em>{{currentUser.username}}</em>
-            </template>
-              <b-dropdown-item href="#"><router-link to="/Profile" class="" arial-currente="page">Profile</router-link></b-dropdown-item>
-              <b-dropdown-item @click="logOutAction">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
+              <router-link to="/Profile" class="nav-link active" arial-currente="page">{{currentUser.username}}</router-link>
          </li>
-
-         <li class="nav-item">
-              <router-link to="/Login" class="nav-link active" arial-currente="page">Login</router-link>
+         <li class="nav-item" @click="logOutAction">
+              <router-link to ="/Login" class="nav-link active" arial-currente="page">Cerrar sesión</router-link>
          </li>
         </b-nav-form>
       </b-navbar-nav>
@@ -84,5 +77,20 @@ export default {
   background-color: rgb(32, 184, 176);
   font-family: Helvetica;
   font-size: 18px;
+}
+.primary{
+  background-color: #f6b26b !important;
+}
+.nav-link{
+  color: #010101 !important; 
+}
+.nav-link:hover{
+  color: grey !important;
+}
+.logo{
+  margin-right: 12px; 
+}
+#naranjus_navbar{
+  margin-bottom: 30px;
 }
 </style>
