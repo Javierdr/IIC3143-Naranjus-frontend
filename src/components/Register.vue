@@ -50,6 +50,17 @@
                         <input v-model="password" type="password" id="password" placeholder="" class="form-control" autofocus>
                     </div>
                 </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Es Admin?</label>
+            <div class="col-3">
+              <div class="form-control">
+                <input type="radio" v-bind:value="true" v-model="is_admin" />
+                <label>Sí</label>
+                <input type="radio" v-bind:value="false" v-model="is_admin" checked="checked" />
+                <label>No</label>
+              </div>
+            </div>
+          </div>
                 <button @click="registerButton" :disabled="disabled" type="button" class="btn btn-primary btn-lg">Crear</button>
                 <button @click="backButton" :disabled="disabled" type="button" class="btn btn-primary btn-lg">Volver a página de inicio</button>
         </form>
@@ -71,6 +82,7 @@ export default {
             apartmentNumber: '',
             username: '',
             password: '',
+            is_admin: false,
         }
     },
     methods: {
@@ -89,7 +101,8 @@ export default {
                 "email": this.email,
                 "username": this.username,
                 "password": this.password,
-                "apartment_number": this.apartmentNumber
+                "apartment_number": this.apartmentNumber,
+                "is_admin": this.is_admin,
             };
 
             const res = await fetch('http://localhost:8000/users/api/register', {
