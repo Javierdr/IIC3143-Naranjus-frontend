@@ -64,7 +64,7 @@ export default {
         },
         registerButton: async function(){
             this.$router.push('Register');
-
+        },
         setCurrentUser() {
           this.$store.dispatch('setCurrentUserAction', localStorage.access)
         }
