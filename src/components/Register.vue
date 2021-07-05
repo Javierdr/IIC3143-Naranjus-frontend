@@ -39,6 +39,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="apartmentNumber" class="col-sm-3 control-label">Numero de domicilio</label>
+                    <div class="col-sm-9">
+                        <input v-model="apartmentNumber" type="text" id="apartment_number" placeholder="Numero de domicilio" class="form-control" autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="password" class="col-sm-3 control-label">Contraseña</label>
                     <div class="col-sm-9">
                         <input v-model="password" type="password" id="password" placeholder="" class="form-control" autofocus>
@@ -61,6 +67,7 @@ export default {
             firstName: '',
             lastName: '',
             email: '',
+            apartmentNumber: '',
             username: '',
             password: '',
         }
@@ -81,6 +88,7 @@ export default {
                 "email": this.email,
                 "username": this.username,
                 "password": this.password,
+                "apartment_number": this.apartmentNumber
             };
 
             const res = await fetch('http://localhost:8000/users/api/register', {

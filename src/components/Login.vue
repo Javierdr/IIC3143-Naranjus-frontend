@@ -52,12 +52,16 @@ export default {
             if (res.status === 200) {  // OK
                 localStorage.access = body.access;
                 localStorage.refresh = body.refresh;
+                this.setCurrentUser()
                 this.$router.push('Menu');
             } else {  // ERROR
                 this.error = 'El usuario y la contraseña no coinciden!';
             }
 
             this.disabled = false;
+        },
+        setCurrentUser() {
+          this.$store.dispatch('setCurrentUserAction', localStorage.access)
         }
     }
 }
