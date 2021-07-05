@@ -59,35 +59,31 @@
                     // apellido: this.apellido,
                     RUT: this.RUT,
                 };
+                this.validVisit = false;
                 this.disabled = true;
                 this.error = "";
-                const res = await fetch('http://localhost:8000/vistas/api/validate', {
-                    method: 'POST',
+                const res = await fetch(`http://localhost:8000/visitors/`, {
+                    method: 'GET',
                     cache: 'no-cache',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': 'http://localhost:8080'
+                        'Origin': 'http://localhost:8080',
+                        'Authorization': "Bearer " + localStorage.access,
                     },
-                    body: JSON.stringify(a)
                 });
-                // const body = await res.json();
-                console.log("ID");
-                console.log(localStorage.access);
-                console.log("res");
-                console.log(res);
-                const body = res;
-
-                if (res.status === 200) {  // OK
-                    this.validVisit = body.isValid;
-                    if (!this.validVisit) {
+                let body = await res.json();
+                if (res.status === 200) {
+                    body = body.filter(visita => visita.rut == this.RUT)
+                    if (body.length === 0){ // TODO validar correctamente con fecha
                         this.error = 'Su visita no está registrada en este horario, contacte con el guardia';
+                    } else {
+                        this.validVisit = true
                     }
                 } else {  // ERROR
                     this.error = 'No ha sido posible contactar con el servidor, contacte con el guardia';
                 }
-                console.log("${process.env.VUE_APP_SERVER}");
-                console.log(process.env);
+
                 this.titulo = this.validVisit ? "Validación Exitosa" : "Visita no autorizada";
                 this.RUT = "";
                 this.show = true; //TODO esto debe estar en un fetch esperando al server

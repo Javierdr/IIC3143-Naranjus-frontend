@@ -33,6 +33,9 @@
         <li class="nav-item">
           <router-link to="/registro_visitas" class="nav-link active" arial-currente="page">Registro de visita</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/validacion_peaton" class="nav-link active" arial-currente="page">Validar visita</router-link>
+        </li>
       </b-navbar-nav>
 <!--      <ul class="list-group">-->
 <!--        <li class="list-group-item"><router-link to="plates">Camaras </router-link></li>-->
