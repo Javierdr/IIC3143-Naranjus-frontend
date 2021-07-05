@@ -9,23 +9,23 @@
           <div class="form-group row">
             <label class="col-3 col-form-label">Nombre</label>
             <div class="col-3">
-              <input v-model="nombre" @keyup.enter="crearVisita" type="text" class="form-control" placeholder="Nombre">
+              <input v-model="nombre" type="text" class="form-control" placeholder="Nombre">
             </div>
             <label class="col-3 col-form-label">Apellido</label>
             <div class="col-3">
-              <input v-model="apellido" @keyup.enter="crearVisita" type="text" name="apellido" placeholder="apellido"
+              <input v-model="apellido" type="text" name="apellido" placeholder="apellido"
                      class="form-control">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">RUT</label>
             <div class="col-3">
-              <input v-model="RUT" @keyup.enter="crearVisita" type="text" name="RUT" placeholder="RUT"
+              <input v-model="RUT" type="text" name="RUT" placeholder="RUT"
                      class="form-control">
             </div>
             <label class="col-3 col-form-label">Fecha</label>
             <div class="col-3">
-              <input v-model="fecha" @keyup.enter="crearVisita" type="date" name="fecha" class="form-control">
+              <input v-model="fecha" type="date" name="fecha" class="form-control">
             </div>
           </div>
           <div class="form-group row">
@@ -41,7 +41,7 @@
           <div class="form-group row">
             <label class="col-3 col-form-label">Destino</label>
             <div class="col-9">
-              <input v-model="destino" @keyup.enter="crearVisita" type="text" name="destino" placeholder="destino"
+              <input v-model="destino" type="text" name="destino" placeholder="destino"
                      class="form-control">
             </div>
           </div>
@@ -58,11 +58,11 @@
             <template v-if="in_auto">
               <label class="col-3 col-form-label">Patente</label>
               <div class="col-3">
-                <input v-model="patente" @keyup.enter="crearVisita" type="text" name="patente" class="form-control">
+                <input v-model="patente" type="text" name="patente" class="form-control">
               </div>
             </template>
           </div>
-          <input @click="crearVisita" type="button" value="Añadir" class="btn btn-success">
+          <input @click="BETAcrearVisita" type="button" value="Añadir" class="btn btn-success">
           <router-link to="Menu">
             <b-btn class="btn btn-info float-right">
               Volver
@@ -102,7 +102,8 @@
                 hora2: "",
                 in_auto: false,
                 show: false,
-                idcount: 0
+                idcount: 0,
+                errors: []
             }
         },
         methods: {
@@ -122,6 +123,48 @@
                 };
                 this.$store.dispatch('addVisitasProgramadasAction', a);
                 this.$store.dispatch('idVisitaProgramadaCounterAction');
+                this.nombre = "";
+                this.apellido = "";
+                this.RUT = "";
+                this.fecha = "";
+                this.patente = "";
+                this.in_auto = false;
+                this.show = true; //TODO esto debe estar en un fetch esperando al server
+            },
+
+            BETAcrearVisita: async function () { // TODO revisar cuando en backend esté implementado esto
+                const a = {
+                    name: this.nombre,
+                    lastname: this.apellido,
+                    rut: this.RUT,
+                    fecha: this.fecha,
+                    destino: this.destino,
+                    patente: this.patente,
+                    in_auto: this.in_auto,
+                    hora1: this.hora1,
+                    hora2: this.hora2,
+                };
+                console.log("Bearer " + localStorage.access);
+                const res = await fetch('http://localhost:8000/visitors/create', {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://localhost:8080',
+                        'Authorization': "Bearer " + localStorage.access
+                    },
+                    body: JSON.stringify(a)
+                });
+                console.log(res);
+
+                const body = await res;
+
+                if (res.status === 200) {
+                    this.success = true;
+                } else{
+                    this.errors.push(body)
+                }
                 this.nombre = "";
                 this.apellido = "";
                 this.RUT = "";

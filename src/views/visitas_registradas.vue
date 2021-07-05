@@ -18,7 +18,7 @@
           </thead>
           <tbody>
           <tr v-for="(visita, index) in visitas">
-           
+
               <span>{{ visita.nombre }}</span>
             </td>
             <td>
@@ -63,6 +63,20 @@
         computed: {
             visitas() {
                 return this.$store.getters.visitas
+            },
+            async BETAvisitas() { // TODO revisar cuando en backend esté implementado esto
+                const res = await fetch(`http://localhost:8000/visitas/`, {
+                    method: 'GET',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://localhost:8080'
+                    },
+                    body: JSON.stringify(data)
+                });
+                body = await res.json();
+
+                return body.visitas
             }
         }
     }
