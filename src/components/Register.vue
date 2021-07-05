@@ -57,6 +57,9 @@
 </template>
 
 <script>
+
+const api = process.env.VUE_APP_BACKEND;
+
 export default {
     name: 'Register',
     data() {
@@ -92,13 +95,13 @@ export default {
                 "apartment_number": this.apartmentNumber
             };
 
-            const res = await fetch('http://localhost:8000/users/api/register', {
+            const res = await fetch(`${api}/users/api/register`, {
                 method: 'POST',
                 cache: 'no-cache',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Origin': 'http://localhost:8080'
+                    'Origin': process.env.VUE_APP_FRONTEND
                 },
                 body: JSON.stringify(data)
             });

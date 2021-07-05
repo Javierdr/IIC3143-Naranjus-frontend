@@ -59,6 +59,9 @@
 </template>
 
 <script>
+
+const api = process.env.VUE_APP_BACKEND;
+
     export default {
         name: "visitas_programadas",
         data() {
@@ -71,13 +74,14 @@
         },
         methods: {
             async BETAvisitasButton() { // TODO revisar cuando en backend esté implementado esto
-                const res = await fetch(`http://localhost:8000/visitors/`, {
+                
+                const res = await fetch(`${api}/visitors/`, {
                     method: 'GET',
                     cache: 'no-cache',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': 'http://localhost:8080',
+                        'Origin': process.env.VUE_APP_FRONTEND,
                         'Authorization': "Bearer " + localStorage.access,
                     },
                 });
