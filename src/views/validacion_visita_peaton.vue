@@ -38,6 +38,9 @@
 </template>
 
 <script>
+
+const api = process.env.VUE_APP_BACKEND;
+
     export default {
         name: "validacion_visita_peaton",
         data() {
@@ -62,13 +65,14 @@
                 this.validVisit = false;
                 this.disabled = true;
                 this.error = "";
-                const res = await fetch(`http://localhost:8000/visitors/`, {
+                
+                const res = await fetch(`${api}/visitors/`, {
                     method: 'GET',
                     cache: 'no-cache',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': 'http://localhost:8080',
+                        'Origin': process.env.VUE_APP_FRONTEND,
                         'Authorization': "Bearer " + localStorage.access,
                     },
                 });

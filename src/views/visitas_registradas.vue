@@ -54,6 +54,8 @@
 </template>
 
 <script>
+
+const api = process.env.VUE_APP_BACKEND;
     export default {
         name: "registro_visitas",
         data() {
@@ -65,12 +67,13 @@
                 return this.$store.getters.visitas
             },
             async BETAvisitas() { // TODO revisar cuando en backend esté implementado esto
-                const res = await fetch(`http://localhost:8000/visitas/`, {
+                
+                const res = await fetch(`${api}/visitas/`, {
                     method: 'GET',
                     cache: 'no-cache',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': 'http://localhost:8080'
+                        'Origin': process.env.VUE_APP_FRONTEND
                     },
                     body: JSON.stringify(data)
                 });

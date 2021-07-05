@@ -88,6 +88,9 @@
 </template>
 
 <script>
+
+const api = process.env.VUE_APP_BACKEND;
+
     export default {
         name: "programar_visitas",
         data() {
@@ -145,13 +148,14 @@
                     hora2: this.hora2,
                 };
                 console.log("Bearer " + localStorage.access);
-                const res = await fetch('http://localhost:8000/visitors/create', {
+                
+                const res = await fetch(`${api}/visitors/create`, {
                     method: 'POST',
                     cache: 'no-cache',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': 'http://localhost:8080',
+                        'Origin': process.env.VUE_APP_FRONTEND,
                         'Authorization': "Bearer " + localStorage.access
                     },
                     body: JSON.stringify(a)
