@@ -16,7 +16,7 @@
           <router-link  to="/LogsEntradaVU" class="nav-link active" arial-currente="page">Visitas</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="plates" class="nav-link active" arial-currente="page">Nuevo Usuario</router-link>
+          <router-link to="plates" class="nav-link active" arial-currente="page">Cámara</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/PlatesPage" class="nav-link active" arial-currente="page">Patentes</router-link>
@@ -34,10 +34,10 @@
             <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
             <template #button-content>
-              <em>User</em>
+              <em>{{currentUser.username}}</em>
             </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item @click="logOutAction">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
          </li>
 
@@ -49,20 +49,26 @@
     </b-collapse>
   </b-navbar>
 </div>
-
-
-
 </template>
-
-<router-view></router-view>
-
 
 <script>
 export default {
-    data: {
+  data() {
+    return {
 
     }
-
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.getCurrentUser
+    },
+  },
+  methods: {
+    logOutAction() {
+      this.$store.dispatch('deleteSessionAction');
+      this.$router.push('/')
+    }
+  }
 }
 
 </script>
@@ -73,9 +79,5 @@ export default {
   background-color: rgb(32, 184, 176);
   font-family: Helvetica;
   font-size: 18px;
-}
-
-.router-link {
-  color:
 }
 </style>
