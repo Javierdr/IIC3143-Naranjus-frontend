@@ -64,7 +64,12 @@ export const store = new Vuex.Store({
           },
       });
       const body = await res.json();
-      context.commit('setCurrentUser', body[0])
+      var base64Url = payload.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join('')));
+      context.commit('setCurrentUser', body.filter(user => user.id == jsonPayload.user_id)[0])
     },
     deleteSessionAction (context) {
       context.commit('deleteSession');
