@@ -4,8 +4,7 @@ import HomePage from '@/components/HomePage'
 import Register from '@/components/Register'
 import Menu from '@/components/Menu'
 import NewUser from '@/components/NewUser'
-import LogsEntrada from '@/components/LogsEntrada'
-import LogsEntradaVU from '@/components/LogsEntradaVU'
+import Profile from '@/components/Profile'
 import PlatesPage from '@/components/PlatesPage'
 import registro_visitas from '@/views/registro_visitas'
 import visitas_registradas from '@/views/visitas_registradas'
@@ -43,14 +42,12 @@ const router =  new Router({
       component: NewUser
     },
     {
-      path: '/LogsEntrada',
-      name: 'LogsEntrada',
-      component: LogsEntrada
-    },
-    {
-      path: '/LogsEntradaVU',
-      name: 'LogsEntradaVU',
-      component: LogsEntradaVU
+      path: '/Profile',
+      name: 'Profile',
+      component: Profile,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/plates',
