@@ -45,6 +45,7 @@
                     </div>
                 </div>
                 <button @click="registerButton" :disabled="disabled" type="button" class="btn btn-primary btn-lg">Crear</button>
+                <button @click="backButton" :disabled="disabled" type="button" class="btn btn-primary btn-lg">Volver a página de inicio</button>
         </form>
     </div>
 </template>
@@ -128,6 +129,9 @@ export default {
             var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return regex.test(email);
         },
+        backButton: async function() {
+            this.$router.push('/');
+        }
         // validRut: function(rut) {
         //     var regex = /^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/;
         //     return regex.test(rut);
