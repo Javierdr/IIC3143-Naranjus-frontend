@@ -10,10 +10,6 @@
 
 import Menu from '@/components/Menu'
 
-console.log("HOLA")
-console.log(process.env.VUE_APP_VAR);
-console.log(process.env.VUE_APP_NEWVAR);
-
 
 export default {
   name: 'App',
