@@ -14,7 +14,7 @@
                 <input v-model="password"  type="password" id="password"  class="form-control">
                 <button @click="onSubmit" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Iniciar sesión</button>
                 <h4> No tienes cuenta? Registrate! </h4>
-                <button @click="onSubmitRegister" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Registrarse</button>
+                <button @click="registerButton" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Registrarse</button>
             </div>
         </form>
     </div>
@@ -54,6 +54,7 @@ export default {
             if (res.status === 200) {  // OK
                 localStorage.access = body.access;
                 localStorage.refresh = body.refresh;
+                this.setCurrentUser()
                 this.$router.push('Menu');
             } else {  // ERROR
                 this.error = 'El usuario y la contraseña no coinciden!';
@@ -61,9 +62,11 @@ export default {
 
             this.disabled = false;
         },
-        onSubmitRegister: async function(){
+        registerButton: async function(){
             this.$router.push('Register');
 
+        setCurrentUser() {
+          this.$store.dispatch('setCurrentUserAction', localStorage.access)
         }
     }
 }

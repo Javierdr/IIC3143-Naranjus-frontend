@@ -1,24 +1,28 @@
 <template>
   <div id="app">
-    <Menu />
-
-    <router-view/>
+  <Menu v-if="currentUser" />
+  <router-view/>
   </div>
 </template>
 
 <script>
-
-import Menu from '@/components/Menu'
+import Menu from './components/Menu'
 
 
 export default {
   name: 'App',
-
+  components: {
+    Menu
+  },
   data() {
     return {
-      currentUser: localStorage.access
     }
-  }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.getCurrentUser
+    },
+  },
 }
 
 
@@ -31,9 +35,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  font-family:;
-  
+  color: #2c3e50;  
 }
 
 .nav {
