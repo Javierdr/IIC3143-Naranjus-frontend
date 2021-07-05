@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid m-0 p-0">
-    <div id="home-page" class="full-height bg-danger p-4">
+    <div id="home-page" class="full-height p-4">
       <div class="container pt-3">
         <div class="row pb-5">
           <div class="col-lg-6 pt-4 my-auto">
