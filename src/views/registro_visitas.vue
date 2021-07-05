@@ -97,25 +97,46 @@
                 hora1: "",
                 in_auto: false,
                 show: false,
-                idcount: 0
+                idcount: 0,
+                errors: [],
             }
         },
         methods: {
-            crearVisita: function () {
+            crearVisita: async function () {
                 const a = {
                     // TODO agregar el id de quien registra a la visita (el current_user.id)
                     id: this.$store.getters.idVisitaCounter,
-                    nombre: this.nombre,
-                    apellido: this.apellido,
-                    RUT: this.RUT,
+                    name: this.nombre,
+                    lastname: this.apellido,
+                    rut: this.RUT,
                     fecha: this.fecha,
                     destino: this.destino,
                     patente: this.patente,
                     in_auto: this.in_auto,
                     hora1: this.hora1,
                 };
-                this.$store.dispatch('addVisitasAction', a);
-                this.$store.dispatch('idVisitaCounterAction');
+                const res = await fetch('http://localhost:8000/visitors/create', {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://localhost:8080',
+                        'Authorization': "Bearer " + localStorage.access
+                    },
+                    body: JSON.stringify(a)
+                });
+                const body = await res;
+
+                if (res.status === 200) {
+                    this.success = true;
+                } else{
+                    this.errors.push(body);
+                    console.log("error");
+                    console.log(res);
+                }
+                // this.$store.dispatch('addVisitasAction', a);
+                // this.$store.dispatch('idVisitaCounterAction');
                 this.nombre = "";
                 this.apellido = "";
                 this.RUT = "";
