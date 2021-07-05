@@ -2,12 +2,12 @@
   <div id="app">
   <Menu v-if="currentUser" />
   <router-view/>
-
   </div>
 </template>
 
 <script>
 import Menu from './components/Menu'
+
 
 export default {
   name: 'App',
@@ -16,7 +16,6 @@ export default {
   },
   data() {
     return {
-      
     }
   },
   computed: {
@@ -25,6 +24,8 @@ export default {
     },
   },
 }
+
+
 </script>
 
 <style>

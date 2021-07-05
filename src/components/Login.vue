@@ -13,6 +13,8 @@
                 <label for="password" class ="mt-2">Contraseña</label>
                 <input v-model="password"  type="password" id="password"  class="form-control">
                 <button @click="onSubmit" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Iniciar sesión</button>
+                <h4> No tienes cuenta? Registrate! </h4>
+                <button @click="registerButton" :disabled="disabled" type= "sumbit" class="btn btn-success mt-2">Registrarse</button>
             </div>
         </form>
     </div>
@@ -60,6 +62,9 @@ export default {
 
             this.disabled = false;
         },
+        registerButton: async function(){
+            this.$router.push('Register');
+
         setCurrentUser() {
           this.$store.dispatch('setCurrentUserAction', localStorage.access)
         }
