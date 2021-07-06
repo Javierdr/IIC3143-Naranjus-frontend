@@ -11,26 +11,26 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <li class="nav-item">
+        <li v-if="currentUser.is_admin" class="nav-item">
           <router-link to="plates" class="nav-link active" arial-currente="page">Cámara</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/PlatesPage" class="nav-link active" arial-currente="page">Patentes</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/Register" class="nav-link active" arial-currente="page">Registro</router-link>
-        </li>
-        <li class="nav-item">
+        <li v-if="!currentUser.is_admin" class="nav-item">
           <router-link to="/programar_visitas" class="nav-link active" arial-currente="page">Programar Visita</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/visitas_programadas" class="nav-link active" arial-currente="page">Visitas Programadas</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/registro_visitas" class="nav-link active" arial-currente="page">Registro de visita</router-link>
-        </li>
-        <li class="nav-item">
+        <li v-if="currentUser.is_admin" class="nav-item">
           <router-link to="/validacion_peaton" class="nav-link active" arial-currente="page">Validar visita</router-link>
+        </li>
+        <li v-if="currentUser.is_admin" class="nav-item">
+          <router-link to="/registro_visitas" class="nav-link active" arial-currente="page">Registar visita</router-link>
+        </li>
+        <li v-if="currentUser.is_admin" class="nav-item">
+          <router-link to="/visitas_registradas" class="nav-link active" arial-currente="page">Registro de visita</router-link>
         </li>
       </b-navbar-nav>
 
@@ -82,13 +82,13 @@ export default {
   background-color: #f6b26b !important;
 }
 .nav-link{
-  color: #010101 !important; 
+  color: #010101 !important;
 }
 .nav-link:hover{
   color: grey !important;
 }
 .logo{
-  margin-right: 12px; 
+  margin-right: 12px;
 }
 #naranjus_navbar{
   margin-bottom: 30px;
