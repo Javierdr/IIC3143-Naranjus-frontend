@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-  <Menu v-if="currentUser" />
+  <Navbar v-if="currentUser" />
   <router-view/>
   </div>
 </template>
 
 <script>
-import Menu from './components/Menu'
+import Navbar from './components/Navbar'
 
 
 export default {
   name: 'App',
   components: {
-    Menu
+    Navbar
   },
   data() {
     return {
@@ -36,6 +36,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;  
+  margin-bottom: 30px;
 }
 
 .nav {

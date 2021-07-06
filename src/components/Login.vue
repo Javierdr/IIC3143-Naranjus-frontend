@@ -20,7 +20,8 @@
     </div>
 </template>
 <script>
-const api = 'http://localhost:8000';
+
+const api = process.env.VUE_APP_BACKEND;
 
 export default {
     data() {
@@ -45,7 +46,7 @@ export default {
                 cache: 'no-cache',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Origin': 'http://localhost:8080'
+                    'Origin': process.env.VUE_APP_FRONTEND
                 },
                 body: JSON.stringify(data)
             });

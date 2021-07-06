@@ -84,6 +84,9 @@
 </template>
 
 <script>
+
+const api = process.env.VUE_APP_BACKEND;
+
     export default {
         name: "registro_visitas",
         data() {
@@ -115,13 +118,13 @@
                     in_auto: this.in_auto,
                     hora1: this.hora1,
                 };
-                const res = await fetch('http://localhost:8000/visitors/create', {
+                const res = await fetch(`${api}/visitors/create`, {
                     method: 'POST',
                     cache: 'no-cache',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': 'http://localhost:8080',
+                        'Origin': process.env.VUE_APP_FRONTEND,
                         'Authorization': "Bearer " + localStorage.access
                     },
                     body: JSON.stringify(a)
