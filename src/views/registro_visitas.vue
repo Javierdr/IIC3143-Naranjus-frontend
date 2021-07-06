@@ -118,7 +118,7 @@ const api = process.env.VUE_APP_BACKEND;
                     in_auto: this.in_auto,
                     hora1: this.hora1,
                 };
-                const res = await fetch(`${api}/visitors/create`, {
+                const res = await fetch(`${api}/visitors/create/`, {
                     method: 'POST',
                     cache: 'no-cache',
                     mode: 'cors',

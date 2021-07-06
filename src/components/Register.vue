@@ -113,7 +113,15 @@ export default {
                 this.errors.push(body)
             }
             this.disabled = false;
-            this.$router.push('/');
+
+            this.firstName = "";
+            this.firstName = "";
+            this.lastName = "";
+            this.email = "";
+            this.username = "";
+            this.password = "";
+            this.apartmentNumber = "";
+
         },
         checkErrors: function () {
             this.errors = [];
