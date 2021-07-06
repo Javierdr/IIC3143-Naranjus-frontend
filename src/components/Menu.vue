@@ -1,5 +1,7 @@
 <template>
+<div>
   <h1>Vista del menú</h1>
+</div>
 </template>
 
 <script>
