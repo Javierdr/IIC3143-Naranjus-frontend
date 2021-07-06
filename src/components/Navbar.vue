@@ -29,8 +29,8 @@
         <li v-if="currentUser.is_admin" class="nav-item">
           <router-link to="/registro_visitas" class="nav-link active" arial-currente="page">Registar visita</router-link>
         </li>
-        <li v-if="currentUser.is_admin" class="nav-item">
-          <router-link to="/visitas_registradas" class="nav-link active" arial-currente="page">Registro de visita</router-link>
+        <li class="nav-item">
+          <router-link to="/visitas_registradas" class="nav-link active" arial-currente="page">Historico Visitas</router-link>
         </li>
       </b-navbar-nav>
 

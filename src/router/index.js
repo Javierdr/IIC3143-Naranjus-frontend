@@ -77,7 +77,6 @@ const router =  new Router({
       component: visitas_registradas,
       meta: {
         requiresAuth: true,
-        adminRole: true,
       }
     },
     {
