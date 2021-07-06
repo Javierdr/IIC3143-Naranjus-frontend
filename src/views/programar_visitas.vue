@@ -149,7 +149,7 @@ const api = process.env.VUE_APP_BACKEND;
                 };
                 console.log("Bearer " + localStorage.access);
                 
-                const res = await fetch(`${api}/visitors/create`, {
+                const res = await fetch(`${api}/visitors/create/`, {
                     method: 'POST',
                     cache: 'no-cache',
                     mode: 'cors',
