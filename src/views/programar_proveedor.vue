@@ -74,32 +74,23 @@ const api = process.env.VUE_APP_BACKEND;
             }
         },
         methods: {
-            crearProveedor: function () {
-                const a = {
-                    nombre: this.name_proveedor,
-                    descripcion: this.descripcion,
-                    hora1: this.hora1,
-                    hora2: this.hora2,
-                };
-                //this.$store.dispatch('addVisitasProgramadasAction', a);
-                //this.$store.dispatch('idVisitaProgramadaCounterAction');
-                this.nombre = "";
-                this.descripcion = "";
-                this.hora1 ="";
-                this.hora2 = "";
-                this.show = true;
-            },
 
             BETAcrearProveedor: async function () { // TODO revisar cuando en backend esté implementado esto
                 const a = {
-                    name: this.nombre,
+                    name: this.name_proveedor,
                     description: this.descripcion,
-                    scheduled_entry_hour: this.hora1,
-                    scheduled_exit_hour: this.hora2,
+                    scheduled_entry_hour: "16:30:00",
+                    scheduled_exit_hour: "16:30:01",
+                    //scheduled_entry_hour: this.hora1,
+                    //scheduled_exit_hour: this.hora2,
+
                 };
+
+                console.log(JSON.stringify(a));
+                this.success = false;
                 console.log("Bearer " + localStorage.access);
 
-                const res = await fetch(`${api}/providers/create/`, {
+                const res = await fetch(`${api}/providers/`, {
                     method: 'POST',
                     cache: 'no-cache',
                     mode: 'cors',
