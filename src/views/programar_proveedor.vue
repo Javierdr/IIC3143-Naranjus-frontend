@@ -25,7 +25,7 @@
           <div class="form-group row">
             <label class="col-3 col-form-label">Descripcion</label>
             <div class="col-9">
-              <input v-model="descripcion" type="text" name="destino" placeholder="destino"
+              <input v-model="descripcion" type="text" name="descripcion" placeholder="descripcion"
                      class="form-control">
             </div>
           </div>
@@ -87,7 +87,7 @@ const api = process.env.VUE_APP_BACKEND;
                 this.descripcion = "";
                 this.hora1 ="";
                 this.hora2 = "";
-                this.show = true; 
+                this.show = true;
             },
 
             BETAcrearProveedor: async function () { // TODO revisar cuando en backend esté implementado esto
