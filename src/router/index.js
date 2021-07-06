@@ -37,7 +37,7 @@ const router =  new Router({
       name: 'Menu',
       component: Menu,
       meta: {
-        requiresVisitor: true,
+        requiresAuth: true,
       }
     },
     {
