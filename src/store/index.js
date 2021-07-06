@@ -53,7 +53,7 @@ export const store = new Vuex.Store({
       context.commit('idVisitaProgramadaCounter')
     },
     async setCurrentUserAction (context, payload) {
-        const res = await fetch(`http://localhost:8000/users/api`, {
+        const res = await fetch(`${process.env.VUE_APP_BACKEND}/users/api/`, {
           method: 'get',
           cache: 'no-cache',
           mode: 'cors',

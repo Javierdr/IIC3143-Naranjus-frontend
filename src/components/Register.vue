@@ -92,10 +92,10 @@ export default {
                 "email": this.email,
                 "username": this.username,
                 "password": this.password,
-                "apartment_number": this.apartmentNumber
+                "apartment_number": this.apartmentNumber,
             };
 
-            const res = await fetch(`${api}/users/api/register`, {
+            const res = await fetch(`${api}/users/api/register/`, {
                 method: 'POST',
                 cache: 'no-cache',
                 mode: 'cors',
@@ -113,6 +113,7 @@ export default {
                 this.errors.push(body)
             }
             this.disabled = false;
+            this.$router.push('/');
         },
         checkErrors: function () {
             this.errors = [];

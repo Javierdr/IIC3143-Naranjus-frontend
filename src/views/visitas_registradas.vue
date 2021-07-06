@@ -18,14 +18,14 @@
           </thead>
           <tbody>
           <tr v-for="(visita, index) in visitas">
-
-              <span>{{ visita.nombre }}</span>
+            <td>
+              <span>{{ visita.name }}</span>
             </td>
             <td>
-              <span>{{visita.apellido}}</span>
+              <span>{{visita.lastname}}</span>
             </td>
             <td>
-              <span>{{visita.RUT}}</span>
+              <span>{{visita.rut}}</span>
             </td>
             <td>
               <span>{{visita.fecha}}</span>
@@ -59,29 +59,36 @@ const api = process.env.VUE_APP_BACKEND;
     export default {
         name: "registro_visitas",
         data() {
-            return {}
+            return {
+                visitas: []
+            }
         },
-        methods: {},
-        computed: {
-            visitas() {
-                return this.$store.getters.visitas
-            },
+        created() {
+            this.BETAvisitas()
+        },
+        methods: {
             async BETAvisitas() { // TODO revisar cuando en backend esté implementado esto
-                
-                const res = await fetch(`${api}/visitas/`, {
+                const res = await fetch(`${api}/visitors/`, {
                     method: 'GET',
                     cache: 'no-cache',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Origin': process.env.VUE_APP_FRONTEND
-                    },
-                    body: JSON.stringify(data)
+                        'Origin': process.env.VUE_APP_FRONTEND,
+                        'Authorization': "Bearer " + localStorage.access,
+                    }
                 });
-                body = await res.json();
+                const body = await res.json();
+                if (res.status === 200) {
+                    this.success = true;
+                    this.visitas = body
 
-                return body.visitas
+                } else{
+                    console.log("error");
+                    console.log(res);
+                }
             }
-        }
+        },
     }
 </script>
 

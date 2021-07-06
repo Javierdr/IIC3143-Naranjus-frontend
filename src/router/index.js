@@ -11,6 +11,7 @@ import visitas_registradas from '@/views/visitas_registradas'
 import programar_visitas from '@/views/programar_visitas'
 import visitas_programadas from '@/views/visitas_programadas'
 import validacion_visita_peaton from '@/views/validacion_visita_peaton'
+import {store} from '@/store';
 
 Vue.use(Router)
 
@@ -34,7 +35,10 @@ const router =  new Router({
     {
       path: '/Menu',
       name: 'Menu',
-      component: Menu
+      component: Menu,
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/NewUser',
@@ -55,6 +59,7 @@ const router =  new Router({
       component: PlatesPage,
       meta: {
         requiresAuth: true,
+        adminRole: true,
       }
     },
     {
@@ -63,6 +68,7 @@ const router =  new Router({
       component: registro_visitas,
       meta: {
         requiresAuth: true,
+        adminRole: true,
       }
     },
     {
@@ -71,6 +77,7 @@ const router =  new Router({
       component: visitas_registradas,
       meta: {
         requiresAuth: true,
+        adminRole: true,
       }
     },
     {
@@ -95,6 +102,7 @@ const router =  new Router({
       component: validacion_visita_peaton,
       meta: {
         requiresAuth: true,
+        adminRole: true,
       }
     },
 
@@ -104,6 +112,14 @@ const router =  new Router({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     if (localStorage.access){
+      const currentUser = store.getters.getCurrentUser;
+      if (to.meta.adminRole) {
+        if (currentUser.is_admin){
+          next();
+        } else {
+          next('/');
+        }
+      }
       next();
     } else {
       next('/');
