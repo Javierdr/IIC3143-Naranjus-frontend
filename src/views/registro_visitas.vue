@@ -3,62 +3,56 @@
     <h1>Registro visitas</h1>
     <div class="container mt-5">
       <h2>Datos de la visita</h2>
-<!--      TODO validar formulario-->
+      <!--      TODO validar formulario-->
       <form action="" class="text-center">
         <div class="modal-body">
           <div class="form-group row">
             <label class="col-3 col-form-label">Nombre</label>
             <div class="col-3">
-              <input v-model="nombre" @keyup.enter="crearVisita" type="text" class="form-control" placeholder="Nombre">
+              <input v-model="nombre" type="text" class="form-control" placeholder="Nombre">
             </div>
             <label class="col-3 col-form-label">Apellido</label>
             <div class="col-3">
-              <input v-model="apellido" @keyup.enter="crearVisita" type="text" name="apellido" placeholder="apellido"
+              <input v-model="apellido" type="text" name="apellido" placeholder="apellido"
                      class="form-control">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">RUT</label>
             <div class="col-3">
-              <input v-model="RUT" @keyup.enter="crearVisita" type="text" name="RUT" placeholder="RUT"
+              <input v-model="RUT" type="text" name="RUT" placeholder="RUT"
                      class="form-control">
             </div>
             <label class="col-3 col-form-label">Fecha</label>
             <div class="col-3">
-              <input v-model="fecha" @keyup.enter="crearVisita" type="date" name="fecha" class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-3 col-form-label">Hora</label>
-            <div class="col-3">
-              <input v-model="hora1" type="time" name="hora1" class="form-control">
+              {{today}}
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Destino</label>
             <div class="col-9">
-              <input v-model="destino" @keyup.enter="crearVisita" type="text" name="destino" placeholder="destino"
+              <input v-model="destino" type="text" name="destino" placeholder="destino"
                      class="form-control">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Viene en auto?</label>
             <div class="col-3">
-            <div class="form-control">
-              <input type="radio" v-bind:value="true" v-model="in_auto" />
-              <label>Sí</label>
-              <input type="radio" v-bind:value="false" v-model="in_auto" checked="checked" />
-              <label>No</label>
-            </div>
+              <div class="form-control">
+                <input type="radio" v-bind:value="true" v-model="in_auto" />
+                <label>Sí</label>
+                <input type="radio" v-bind:value="false" v-model="in_auto" checked="checked" />
+                <label>No</label>
+              </div>
             </div>
             <template v-if="in_auto">
               <label class="col-3 col-form-label">Patente</label>
               <div class="col-3">
-                <input v-model="patente" @keyup.enter="crearVisita" type="text" name="patente" class="form-control">
+                <input v-model="patente" type="text" name="patente" class="form-control">
               </div>
             </template>
           </div>
-          <input @click="crearVisita" type="button" value="Añadir" class="btn btn-success">
+          <input @click="BETAcrearVisita" type="button" value="Añadir" class="btn btn-success">
           <router-link to="Menu">
             <b-btn class="btn btn-info float-right">
               Volver
@@ -85,10 +79,10 @@
 
 <script>
 
-const api = process.env.VUE_APP_BACKEND;
+    const api = process.env.VUE_APP_BACKEND;
 
     export default {
-        name: "registro_visitas",
+        name: "programar_visitas",
         data() {
             return {
                 nombre: "",
@@ -98,17 +92,17 @@ const api = process.env.VUE_APP_BACKEND;
                 destino: "",
                 patente: "",
                 hora1: "",
+                hora2: "",
                 in_auto: false,
                 show: false,
                 idcount: 0,
-                errors: [],
+                errors: []
             }
         },
         methods: {
-            crearVisita: async function () {
+            BETAcrearVisita: async function () { // TODO revisar cuando en backend esté implementado esto
+                this.success = false;
                 const a = {
-                    // TODO agregar el id de quien registra a la visita (el current_user.id)
-                    id: this.$store.getters.idVisitaCounter,
                     name: this.nombre,
                     lastname: this.apellido,
                     rut: this.RUT,
@@ -117,7 +111,14 @@ const api = process.env.VUE_APP_BACKEND;
                     patente: this.patente,
                     in_auto: this.in_auto,
                     hora1: this.hora1,
+                    hora2: this.hora2,
                 };
+                console.log("Bearer " + localStorage.access);
+                console.log(this.fecha);
+                console.log(this.fecha);
+                console.log(this.fecha);
+                console.log(this.fecha);
+
                 const res = await fetch(`${api}/visitors/create/`, {
                     method: 'POST',
                     cache: 'no-cache',
@@ -129,17 +130,72 @@ const api = process.env.VUE_APP_BACKEND;
                     },
                     body: JSON.stringify(a)
                 });
-                const body = await res;
+                console.log(res);
 
-                if (res.status === 200) {
-                    this.success = true;
-                } else{
-                    this.errors.push(body);
-                    console.log("error");
-                    console.log(res);
+                const bodyvisitor = await res.json();
+
+
+
+                console.log("bodyvisitor");
+                console.log(bodyvisitor);
+                console.log("bodyvisitor");
+                if (this.in_auto) {
+
+                    console.log("AUUUTOOOO");
+                    const plate = {
+                        text: this.patente,
+                    };
+
+                    const resplate = await fetch(`${api}/plates/new/`, {
+                        method: 'POST',
+                        cache: 'no-cache',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Origin': process.env.VUE_APP_FRONTEND,
+                            'Authorization': "Bearer " + localStorage.access
+                        },
+                        body: JSON.stringify(plate)
+                    });
+                    var bodyplate = await resplate.json();
+                    console.log("bodyplate");
+                    console.log(bodyplate);
+                    console.log("bodyplate");
                 }
-                // this.$store.dispatch('addVisitasAction', a);
-                // this.$store.dispatch('idVisitaCounterAction');
+
+                if (this.in_auto) {
+                    var visit_data = {
+                        date: this.fecha,
+                        done: false,
+                        plate: bodyplate.id,
+                        visitor: bodyvisitor.pk
+                    };
+                } else {
+                    var visit_data = {
+                        date: this.fecha,
+                        done: false,
+                        visitor: bodyvisitor.pk
+                    };
+                }
+
+                const res2 = await fetch(`${api}/visits/new/`, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': process.env.VUE_APP_FRONTEND,
+                        'Authorization': "Bearer " + localStorage.access
+                    },
+                    body: JSON.stringify(visit_data)
+                });
+
+                const bodyvisit = await res2.json();
+                console.log("bodyvisit");
+                console.log(bodyvisit);
+                console.log("bodyvisit");
+
+
                 this.nombre = "";
                 this.apellido = "";
                 this.RUT = "";
@@ -147,6 +203,17 @@ const api = process.env.VUE_APP_BACKEND;
                 this.patente = "";
                 this.in_auto = false;
                 this.show = true; //TODO esto debe estar en un fetch esperando al server
+            }
+        },
+        computed: {
+            today() {
+                let q = new Date();
+                let dd = String(q.getDate()).padStart(2, '0');
+                let mm = String(q.getMonth() + 1).padStart(2, '0'); //January is 0!
+                let yyyy = q.getFullYear();
+                const hoy = yyyy + '-' + mm + '-' + dd;
+                this.fecha = hoy;
+                return hoy;
             }
         }
     }
