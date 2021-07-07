@@ -13,6 +13,7 @@ import visitas_programadas from '@/views/visitas_programadas'
 import validacion_visita_peaton from '@/views/validacion_visita_peaton'
 import patentes from '@/views/patentes'
 import programar_proveedor from '@/views/programar_proveedor'
+import proveedores_programados from '@/views/proveedores_programados'
 import {store} from '@/store';
 
 Vue.use(Router)
@@ -98,6 +99,14 @@ const router =  new Router({
       }
     },
     {
+      path: '/proveedores_programados',
+      name: 'proveedores_programados',
+      component: proveedores_programados,
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
       path: '/validacion_peaton',
       name: 'validacion_visita_peaton',
       component: validacion_visita_peaton,
@@ -124,7 +133,7 @@ const router =  new Router({
         adminRole: true,
       }
     },
-    
+
   ]
 });
 

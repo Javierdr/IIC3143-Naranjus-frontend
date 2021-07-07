@@ -24,16 +24,19 @@
           <router-link to="/visitas_programadas" class="nav-link active" arial-currente="page">Visitas Programadas</router-link>
         </li>
         <li v-if="currentUser.is_admin" class="nav-item">
-          <router-link to="/validacion_peaton" class="nav-link active" arial-currente="page">Validar visita</router-link>
+          <router-link to="/validacion_peaton" class="nav-link active" arial-currente="page">Validar Visita</router-link>
         </li>
         <li v-if="currentUser.is_admin" class="nav-item">
-          <router-link to="/registro_visitas" class="nav-link active" arial-currente="page">Registar visita</router-link>
+          <router-link to="/registro_visitas" class="nav-link active" arial-currente="page">Registar Visita</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/visitas_registradas" class="nav-link active" arial-currente="page">Historico Visitas</router-link>
         </li>
         <li v-if="currentUser.is_admin" class="nav-item">
           <router-link to="/programar_proveedor" class="nav-link active" arial-currente="page">Programadar Proveedor</router-link>
+        </li>
+        <li v-if="currentUser.is_admin" class="nav-item">
+          <router-link to="/proveedores_programados" class="nav-link active" arial-currente="page">Proveedores Programados</router-link>
         </li>
       </b-navbar-nav>
 
