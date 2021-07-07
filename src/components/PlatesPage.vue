@@ -55,7 +55,7 @@ export default {
             camera: null,
             deviceId: null,
             devices: [],
-            current_plate: "AAAA99",
+            current_plate: "",
             access: 'Esperando',
         };
     },
@@ -72,10 +72,10 @@ export default {
           var images = require.context('../assets/', false, /\.jpeg$/)
           if (this.access == 'Permitido') {
             return images('./semaforo_' + "verde" + ".jpeg")  
-          } else if (this.access == "Negado") {
-            return images('./semaforo_' + "rojo" + ".jpeg")  
+          } else if (this.access == "Esperando") {
+            return images('./semaforo_' + "amarillo" + ".jpeg")  
           } else {
-            return images('./semaforo_' + "amarillo" + ".jpeg")
+            return images('./semaforo_' + "rojo" + ".jpeg")
           }
         },
         imgText() {
@@ -83,8 +83,10 @@ export default {
             return ["Accesso Permitido", `La patente es ${this.current_plate}`]
           } else if (this.access == "Negado") {
             return ["Accesso Denegado", `La patente es ${this.current_plate}`] 
+          } else if (this.access == "Ya realizado") {
+            return ["Accesso Denegado, esta visita ya ingresó", `La patente es ${this.current_plate}`] 
           } else {
-            return ["Esperando que llegue un vehículo", " "]
+            return ["Esperando que llegue un vehículo", ""]
           }
         }
     },
@@ -103,7 +105,7 @@ export default {
     },
     methods: {
         onCapture() {
-            this.img = this.$refs.camera.capture();
+            this.img = this.$refs.camera.capture().split(',')[1];
             this.plateRecognition(this.img)
         },
         onError(error) {
@@ -117,7 +119,34 @@ export default {
             this.camera = deviceId;
         },
         async plateRecognition(img) {
-          this.current_plate = await console.log('LLAMAR FUNCION QUE RECONOCE PATENTE!!!')
+          const data = { "image": img }
+          try {
+            const res = await fetch(`${process.env.VUE_APP_BACKEND}/plates/check/`, {
+              method: 'post',
+              cache: 'no-cache',
+              mode: 'cors',
+              headers: {
+                'Content-Type': 'application/json',
+                'Origin': 'http://localhost:8080',
+                'Authorization': "Bearer " + localStorage.access,
+              },
+              body: JSON.stringify(data)
+            });
+            const body = await res.json();
+            this.current_plate = body.recognized_text;
+            if (body.msg == "Visit was done"){
+              this.access = "Ya realizado"
+            } else if (body.msg == "Accepted") {
+              this.access = "Permitido"
+            } else if (body.msg ==  "Plate doesn't have visit registration") {
+              this.access = "Negado"
+            } else {
+              this.access = "Esperando"
+            }
+          } catch (e) {
+            this.access = "Esperando"
+            this.current_plate = ""
+          }
         }
     }
 };
