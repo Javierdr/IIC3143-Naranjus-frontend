@@ -14,8 +14,8 @@
         <li v-if="currentUser.is_admin" class="nav-item">
           <router-link to="plates" class="nav-link active" arial-currente="page">Cámara</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/PlatesPage" class="nav-link active" arial-currente="page">Patentes</router-link>
+        <li v-if="currentUser.is_admin" class="nav-item">
+          <router-link to="/patentes" class="nav-link active" arial-currente="page">Patentes</router-link>
         </li>
         <li v-if="!currentUser.is_admin" class="nav-item">
           <router-link to="/programar_visitas" class="nav-link active" arial-currente="page">Programar Visita</router-link>
@@ -31,6 +31,9 @@
         </li>
         <li class="nav-item">
           <router-link to="/visitas_registradas" class="nav-link active" arial-currente="page">Historico Visitas</router-link>
+        </li>
+        <li v-if="currentUser.is_admin" class="nav-item">
+          <router-link to="/programar_proveedor" class="nav-link active" arial-currente="page">Programadar Proveedor</router-link>
         </li>
       </b-navbar-nav>
 

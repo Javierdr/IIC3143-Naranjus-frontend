@@ -11,6 +11,8 @@ import visitas_registradas from '@/views/visitas_registradas'
 import programar_visitas from '@/views/programar_visitas'
 import visitas_programadas from '@/views/visitas_programadas'
 import validacion_visita_peaton from '@/views/validacion_visita_peaton'
+import patentes from '@/views/patentes'
+import programar_proveedor from '@/views/programar_proveedor'
 import {store} from '@/store';
 
 Vue.use(Router)
@@ -104,7 +106,25 @@ const router =  new Router({
         adminRole: true,
       }
     },
-
+    {
+      path: '/programar_proveedor',
+      name: 'programar_proveedor',
+      component: programar_proveedor,
+      meta: {
+        requiresAuth: true,
+        adminRole: true,
+      }
+    },
+    {
+      path: '/patentes',
+      name: 'patentes',
+      component: patentes,
+      meta: {
+        requiresAuth: true,
+        adminRole: true,
+      }
+    },
+    
   ]
 });
 
