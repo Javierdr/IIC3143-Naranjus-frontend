@@ -20,25 +20,25 @@
           <tbody>
           <tr v-for="visita in visits">
             <!--            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">{{ visita.visitor }}</td>-->
-            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">
+            <td v-if="(visitors[visita.visitor].resident.apartment_number == currentUser.apartment_number || currentUser.is_admin) && visita.date <= checkDate">
               <span>{{ visitors[visita.visitor].name }}</span>
             </td>
-            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">
+            <td v-if="(visitors[visita.visitor].resident.apartment_number == currentUser.apartment_number || currentUser.is_admin) && visita.date <= checkDate">
               <span>{{visitors[visita.visitor].lastname}}</span>
             </td>
-            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">
+            <td v-if="(visitors[visita.visitor].resident.apartment_number == currentUser.apartment_number || currentUser.is_admin) && visita.date <= checkDate">
               <span>{{visitors[visita.visitor].rut}}</span>
             </td>
-            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">
+            <td v-if="(visitors[visita.visitor].resident.apartment_number == currentUser.apartment_number || currentUser.is_admin) && visita.date <= checkDate">
               <span>{{visita.date}}</span>
             </td>
-            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">
+            <td v-if="(visitors[visita.visitor].resident.apartment_number == currentUser.apartment_number || currentUser.is_admin) && visita.date <= checkDate">
               <span>{{visitors[visita.visitor].resident.apartment_number}}</span>
             </td>
-            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">
+            <td v-if="(visitors[visita.visitor].resident.apartment_number == currentUser.apartment_number || currentUser.is_admin) && visita.date <= checkDate">
               <span>{{visita.plate ? "Si" : "No"}}</span>
             </td>
-            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date <= checkDate">
+            <td v-if="(visitors[visita.visitor].resident.apartment_number == currentUser.apartment_number || currentUser.is_admin) && visita.date <= checkDate">
               <span>{{visita.plate ? plates[visita.plate].text : ""}}</span>
             </td>
           </tr>
