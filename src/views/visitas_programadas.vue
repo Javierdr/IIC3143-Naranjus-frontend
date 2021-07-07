@@ -6,7 +6,7 @@
         <table class="table">
           <thead>
           <tr>
-            <th scope="col">id</th>
+<!--            <th scope="col">id</th>-->
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">RUT</th>
@@ -19,26 +19,26 @@
           </thead>
           <tbody>
           <tr v-for="visita in visits">
-            <td>{{ visita.visitor }}</td>
-            <td>
+<!--            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">{{ visita.visitor }}</td>-->
+            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">
               <span>{{ visitors[visita.visitor].name }}</span>
             </td>
-            <td>
+            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">
               <span>{{visitors[visita.visitor].lastname}}</span>
             </td>
-            <td>
+            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">
               <span>{{visitors[visita.visitor].rut}}</span>
             </td>
-            <td>
+            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">
               <span>{{visita.date}}</span>
             </td>
-            <td>
+            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">
               <span>{{visitors[visita.visitor].resident.apartment_number}}</span>
             </td>
-            <td>
+            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">
               <span>{{visita.plate ? "Si" : "No"}}</span>
             </td>
-            <td>
+            <td v-if="(visitors[visita.visitor].resident.username == currentUser.username || currentUser.is_admin) && visita.date >= checkDate">
               <span>{{visita.plate ? plates[visita.plate].text : ""}}</span>
             </td>
           </tr>
@@ -64,7 +64,8 @@ const api = process.env.VUE_APP_BACKEND;
             return {
                 visits: [],
                 visitors: {},
-                plates: {}
+                plates: {},
+                today: "",
             }
         },
         created() {
@@ -140,6 +141,20 @@ const api = process.env.VUE_APP_BACKEND;
                     console.log("error");
                     console.log(res);
                 }
+            }
+        },
+        computed: {
+            currentUser() {
+                return this.$store.getters.getCurrentUser
+            },
+            checkDate() {
+                let q = new Date();
+                let dd = String(q.getDate()).padStart(2, '0');
+                let mm = String(q.getMonth() + 1).padStart(2, '0'); //January is 0!
+                let yyyy = q.getFullYear();
+
+                return yyyy + '-' + mm + '-' + dd;
+
             }
         }
     }
