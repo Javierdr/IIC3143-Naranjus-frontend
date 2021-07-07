@@ -29,16 +29,6 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-3 col-form-label">Rango hora</label>
-            <div class="col-3">
-              <input v-model="hora1" type="time" name="hora1" class="form-control">
-            </div>
-            -
-            <div class="col-3">
-              <input v-model="hora2" type="time" name="hora2" class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
             <label class="col-3 col-form-label">Destino</label>
             <div class="col-9">
               <input v-model="destino" type="text" name="destino" placeholder="destino"
@@ -110,32 +100,8 @@ const api = process.env.VUE_APP_BACKEND;
             }
         },
         methods: {
-            crearVisita: function () {
-                const a = {
-                    // TODO agregar el id de quien registra a la visita (el current_user.id)
-                    id: this.$store.getters.idVisitaProgramadaCounter,
-                    nombre: this.nombre,
-                    apellido: this.apellido,
-                    RUT: this.RUT,
-                    fecha: this.fecha,
-                    destino: this.destino,
-                    patente: this.patente,
-                    in_auto: this.in_auto,
-                    hora1: this.hora1,
-                    hora2: this.hora2,
-                };
-                this.$store.dispatch('addVisitasProgramadasAction', a);
-                this.$store.dispatch('idVisitaProgramadaCounterAction');
-                this.nombre = "";
-                this.apellido = "";
-                this.RUT = "";
-                this.fecha = "";
-                this.patente = "";
-                this.in_auto = false;
-                this.show = true; //TODO esto debe estar en un fetch esperando al server
-            },
-
             BETAcrearVisita: async function () { // TODO revisar cuando en backend esté implementado esto
+                this.success = false;
                 const a = {
                     name: this.nombre,
                     lastname: this.apellido,
@@ -148,7 +114,11 @@ const api = process.env.VUE_APP_BACKEND;
                     hora2: this.hora2,
                 };
                 console.log("Bearer " + localStorage.access);
-                
+                console.log(this.fecha);
+                console.log(this.fecha);
+                console.log(this.fecha);
+                console.log(this.fecha);
+
                 const res = await fetch(`${api}/visitors/create/`, {
                     method: 'POST',
                     cache: 'no-cache',
@@ -162,13 +132,70 @@ const api = process.env.VUE_APP_BACKEND;
                 });
                 console.log(res);
 
-                const body = await res;
+                const bodyvisitor = await res.json();
 
-                if (res.status === 200) {
-                    this.success = true;
-                } else{
-                    this.errors.push(body)
+
+
+                console.log("bodyvisitor");
+                console.log(bodyvisitor);
+                console.log("bodyvisitor");
+                if (this.in_auto) {
+
+                    console.log("AUUUTOOOO");
+                    const plate = {
+                        text: this.patente,
+                    };
+
+                    const resplate = await fetch(`${api}/plates/new/`, {
+                        method: 'POST',
+                        cache: 'no-cache',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Origin': process.env.VUE_APP_FRONTEND,
+                            'Authorization': "Bearer " + localStorage.access
+                        },
+                        body: JSON.stringify(plate)
+                    });
+                    var bodyplate = await resplate.json();
+                    console.log("bodyplate");
+                    console.log(bodyplate);
+                    console.log("bodyplate");
                 }
+
+                if (this.in_auto) {
+                    var visit_data = {
+                        date: this.fecha,
+                        done: false,
+                        plate: bodyplate.id,
+                        visitor: bodyvisitor.pk
+                    };
+                } else {
+                    var visit_data = {
+                        date: this.fecha,
+                        done: false,
+                        visitor: bodyvisitor.pk
+                    };
+                }
+
+                const res2 = await fetch(`${api}/visits/new/`, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': process.env.VUE_APP_FRONTEND,
+                        'Authorization': "Bearer " + localStorage.access
+                    },
+                    body: JSON.stringify(visit_data)
+                });
+
+                const bodyvisit = await res2.json();
+                console.log("bodyvisit");
+                console.log(bodyvisit);
+                console.log("bodyvisit");
+
+
                 this.nombre = "";
                 this.apellido = "";
                 this.RUT = "";

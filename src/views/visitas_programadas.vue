@@ -11,7 +11,7 @@
             <th scope="col">Apellido</th>
             <th scope="col">RUT</th>
             <th scope="col">Fecha</th>
-            <th scope="col">Destino</th>
+            <th scope="col">Dpto. Destino</th>
             <th scope="col">¿Auto?</th>
             <th scope="col">Patente</th>
             <th></th>
