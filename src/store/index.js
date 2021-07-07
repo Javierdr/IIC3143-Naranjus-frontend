@@ -89,6 +89,10 @@ export const store = new Vuex.Store({
       return state.idVisitasp
     },
     getCurrentUser (state) {
+      if (localStorage.access && !state.currentUser){
+        localStorage.access = "";
+        localStorage.refresh = "";
+      }
       return state.currentUser
     }
   }
