@@ -11,6 +11,10 @@
             <div class="col-3">
               <input v-model="name_proveedor" type="text" class="form-control" placeholder="Nombre">
             </div>
+            <label class="col-3 col-form-label">Fecha</label>
+            <div class="col-3">
+              <input v-model="fecha" type="date" name="fecha" class="form-control">
+            </div>
             </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Rango hora</label>
@@ -28,6 +32,24 @@
               <input v-model="descripcion" type="text" name="descripcion" placeholder="descripcion"
                      class="form-control">
             </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Viene en auto?</label>
+            <div class="col-3">
+            <div class="form-control">
+              <input type="radio" v-bind:value="true" v-model="in_auto" />
+              <label>Sí</label>
+              <input type="radio" v-bind:value="false" v-model="in_auto" checked="checked" />
+              <label>No</label>
+            </div>
+            </div>
+            <template v-if="in_auto">
+              <label class="col-3 col-form-label">Patente</label>
+              <div class="col-3">
+                <input v-model="patente" type="text" name="patente" class="form-control"  placeholder="Ej: HHGG33">
+              </div>
+            </template>
           </div>
 
           <input @click="BETAcrearProveedor" type="button" value="Añadir" class="btn btn-success">
@@ -67,10 +89,12 @@ const api = process.env.VUE_APP_BACKEND;
                 patente: "",
                 hora1: "",
                 hora2: "",
+                fecha: "",
                 descripcion: "",
                 show: false,
                 idcount: 0,
-                errors: []
+                errors: [],
+                in_auto: false,
             }
         },
         methods: {
@@ -79,16 +103,15 @@ const api = process.env.VUE_APP_BACKEND;
                 const a = {
                     name: this.name_proveedor,
                     description: this.descripcion,
-                    scheduled_entry_hour: "16:30:00",
-                    scheduled_exit_hour: "16:30:01",
+                    scheduled_entry_hour: this.hora1+":00",
+                    scheduled_exit_hour: this.hora2+"00",
+                    date:this.fecha,
                     //scheduled_entry_hour: this.hora1,
                     //scheduled_exit_hour: this.hora2,
 
                 };
 
-                console.log(JSON.stringify(a));
                 this.success = false;
-                console.log("Bearer " + localStorage.access);
 
                 const res = await fetch(`${api}/providers/`, {
                     method: 'POST',
@@ -101,9 +124,9 @@ const api = process.env.VUE_APP_BACKEND;
                     },
                     body: JSON.stringify(a)
                 });
-                console.log(res);
 
-                const body = await res;
+                const body = await res.json();
+
 
                 if (res.status === 200) {
                     this.success = true;
@@ -115,9 +138,52 @@ const api = process.env.VUE_APP_BACKEND;
                 this.hora1 ="";
                 this.hora2 = "";
                 this.show = true;
+
+                const c = {
+                  text: this.patente
+                }
+
+                const res3 = await fetch(`${api}/plates/new/`, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': process.env.VUE_APP_FRONTEND,
+                        'Authorization': "Bearer " + localStorage.access
+                    },
+                    body: JSON.stringify(c)
+                });
+
+                const body3 = await res3.json();
+
+                const b = {
+                  date: this.fecha,
+                  done: false,
+                  plate: body3.id,
+                  provider: body.pk,
+                }
+
+                const res2 = await fetch(`${api}/visits/new/`, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': process.env.VUE_APP_FRONTEND,
+                        'Authorization': "Bearer " + localStorage.access
+                    },
+                    body: JSON.stringify(b)
+                });
+
+                const body2 = await res2.json();
+                console.log(body2);
+
             }
+
         }
     }
+
 </script>
 
 <style scoped>
