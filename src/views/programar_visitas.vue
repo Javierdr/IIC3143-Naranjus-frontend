@@ -30,10 +30,14 @@
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Destino</label>
-            <div class="col-9">
+            <div v-if="currentUser.is_admin" class="col-9">
               <input v-model="destino" type="text" name="destino" placeholder="destino"
                      class="form-control">
             </div>
+            <div v-if="!currentUser.is_admin" class="col-3">
+              {{currentUser.apartment_number}}
+            </div>
+
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Viene en auto?</label>
@@ -204,7 +208,17 @@ const api = process.env.VUE_APP_BACKEND;
                 this.in_auto = false;
                 this.show = true; //TODO esto debe estar en un fetch esperando al server
             }
+        },
+        computed: {
+            currentUser() {
+                if (!this.$store.getters.getCurrentUser.is_admin){
+
+                    this.destino = this.$store.getters.getCurrentUser.apartment_number;
+                }
+                return this.$store.getters.getCurrentUser
+            },
         }
+
     }
 </script>
 
