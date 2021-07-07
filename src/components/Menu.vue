@@ -1,4 +1,7 @@
 <template>
+
+<div>
+  <h1>Vista del menú</h1>
   <div>
   <h1>Naranjus</h1>
   <div class="mt-3">
